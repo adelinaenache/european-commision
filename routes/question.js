@@ -36,7 +36,6 @@ router.post('/', async (req, res, next) => {
                 });
             }
         }
-        console.log(currentTags);
         let query = {};
 
         if (currentTags.length) {
@@ -51,9 +50,7 @@ router.post('/', async (req, res, next) => {
         }
 
         const endpoints = await Endpoint.find(query);
-        console.log('here');
-        console.log(currentTags.concat(excludedTags));
-        const questions = await Question.find({ tags: { $not: { $in: currentTags.concat(excludedTags) }}});
+        const questions = await Question.find(currentTags.concat(excludedTags).length ? { tags: { $not: { $in: currentTags.concat(excludedTags) }}}: {});
         let minSplit = questions.length;
         let selectedQ;
 
