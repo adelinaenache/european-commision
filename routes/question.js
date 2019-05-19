@@ -18,13 +18,13 @@ router.post('/', async (req, res, next) => {
 
         if (answer) {
             if (answer.text === 'yes') { 
-                currentTags.push(question.tag);
+                currentTags.push(question.tags[0]);
             } else if (answer.text === 'no') {
-                excludedTags.push(question.tag);
+                excludedTags.push(question.tags[0]);
             } else if (!answer.tag) {
                 question.answers.forEach(ans => {
                     if (ans.tag) {
-                    excludedTags.push(ans.tag);
+                        excludedTags.push(ans.tag);
                     }
                 });
             } else {
@@ -36,6 +36,7 @@ router.post('/', async (req, res, next) => {
                 });
             }
         }
+
         let query = {};
 
         if (currentTags.length) {
