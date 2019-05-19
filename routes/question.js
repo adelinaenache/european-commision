@@ -51,11 +51,8 @@ router.post('/', async (req, res, next) => {
 
         const endpoints = await Endpoint.find(query);
         const questions = await Question.find(currentTags.concat(excludedTags).length ? { tags: { $not: { $in: currentTags.concat(excludedTags) }}}: {});
-        let minSplit = questions.length;
+        let minSplit = endpoints.length;
         let selectedQ;
-
-
-        console.log(questions);
 
         questions.forEach(q => {
             let maxSeq = 0;
@@ -80,7 +77,6 @@ router.post('/', async (req, res, next) => {
             }
         });
 
-        console.log('herre gege,',minSplit, selectedQ);
         if (minSplit === 0 || minSplit === endpoints.length) {
             return res.json({ data, endpoints, isFinished: true })
         }
@@ -88,7 +84,6 @@ router.post('/', async (req, res, next) => {
         Object.assign(data, {
             currentTags,
             excludedTags,
-            question: selectedQ,
         });
 
         return res.json({ data,  question: selectedQ });

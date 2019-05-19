@@ -4,6 +4,7 @@ const servicesSchema = new mongoose.Schema({
     serviceName: String,
     description: String,
     url: String,
+    support: String,
     contact: String,
 });
 
