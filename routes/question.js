@@ -6,7 +6,7 @@ const { Endpoint, Question } = require('../models');
 router.post('/', async (req, res, next) => {
     try {
         const {
-            data,
+            data = {},
             answer,
             question,
         } = req.body;
